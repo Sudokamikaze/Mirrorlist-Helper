@@ -1,0 +1,20 @@
+#!/bin/bash
+cd /tmp
+wget https://www.archlinux.org/mirrorlist/?country=all&protocol=http&ip_version=4
+mv index.html\?country=all\&protocol=http\&ip_version=4 mirrorlist
+sudo cp mirrorlist /etc/pacman.d/mirrorlist.pacnew
+echo Running reflector
+sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
+echo -n "Do you want to replace original mirrorlist file to newly created? [Y/N]"
+read mirror
+case "$mirror" in
+  y|Y) echo "Replaced"
+  mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+  ;;
+  n|N) echo "Aborting"
+  exit
+  ;;
+esac
+echo "Running force update to test new mirrors"
+sudo pacman -Syyu
+echo Done!
