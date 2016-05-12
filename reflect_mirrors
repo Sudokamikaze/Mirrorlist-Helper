@@ -1,18 +1,36 @@
 #!/bin/bash
 cd /tmp
-wget https://www.archlinux.org/mirrorlist/?country=all&protocol=http&ip_version=4
-mv index.html\?country=all\&protocol=http\&ip_version=4 mirrorlist
-sudo cp mirrorlist /etc/pacman.d/mirrorlist.pacnew
-echo Running reflector
-sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
-echo -n "Do you want to replace original mirrorlist file to newly created? [Y/N]"
-read mirror
-case "$mirror" in
-  y|Y) echo "Replaced"
-  mv /etc/pacman.d/mirrorlist.pacnew /etc/pacman.d/mirrorlist
+echo =================================================
+echo 1 - Work with pacman-mirrorlist(pacman)
+echo 2 - Latest mirrorlist(arch mirrorlist generator)
+echo 3 - Just scan and replace mirrorlist file
+echo =================================================
+echo -n "Choose an action: "
+read main
+case "$main" in
+  1) echo "Installing pacman-mirrorlist package"
+  sudo pacman -S pacman-mirrorlist
+  sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
+  echo "Starting replace"
+  cd /etc/pacman.d/
+  sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
   ;;
-  n|N) echo "Aborting"
-  exit
+  2) echo "Downloading fresh mirrorlist from internet"
+  wget https://www.archlinux.org/mirrorlist/?country=all&protocol=http&ip_version=4
+  mv index.html\?country=all\&protocol=http\&ip_version=4 mirrorlist
+  sudo cp mirrorlist /etc/pacman.d/mirrorlist.pacnew
+  echo Running reflector
+  sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
+  echo "Starting replace"
+  cd /etc/pacman.d/
+  sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
+  ;;
+  3) echo "Updating mirrorlist file"
+  sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
+  cd /etc/pacman.d/
+  sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
+  ;;
+  *) echo "Error, unknown symbol.. exiting...."
   ;;
 esac
 echo "Running force update to test new mirrors"
