@@ -1,9 +1,9 @@
 #!/bin/bash
 cd /tmp
 echo =================================================
-echo 1 - Work with pacman-mirrorlist(pacman)
-echo 2 - Latest mirrorlist(arch mirrorlist generator)
-echo 3 - Just scan and replace mirrorlist file
+echo "1 - Work with pacman-mirrorlist(pacman)"
+echo "2 - Latest mirrorlist(arch mirrorlist generator)"
+echo "3 - Just scan and replace mirrorlist file"
 echo =================================================
 echo -n "Choose an action: "
 read main
