@@ -17,7 +17,7 @@ case "$main" in
   ;;
   2) echo "Downloading fresh mirrorlist from internet"
   wget https://www.archlinux.org/mirrorlist/?country=all&protocol=http&ip_version=4
-  mv index.html\?country=all\&protocol=http\&ip_version=4 mirrorlist
+  mv index.html\?country=all mirrorlist
   sudo cp mirrorlist /etc/pacman.d/mirrorlist.pacnew
   echo Running reflector
   sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
