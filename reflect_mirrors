@@ -27,6 +27,8 @@ case "$main" in
   read replace
   if [ $replace == y ]; then echo "Starting replace"; cd /etc/pacman.d/ && sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
 elif [ $replace == n ]; then echo "Exiting..."; exit;
+elif [ $replace == Y ]; then echo "Starting replace"; cd /etc/pacman.d/ && sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
+elif [ $replace == n ]; then echo "Exiting..."; exit;
 else
   echo "Error"
 fi
