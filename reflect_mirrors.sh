@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function doreplace {
-  echo -n "Do you want to replace old mirrorlist to new? [Y/n]"
+  echo -n "Do you want to replace old mirrorlist to new? [Y/n]: "
   read replace
   case "$replace" in
     y|Y) echo "Starting replace"
