@@ -8,6 +8,7 @@ sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
 else
   echo " "
   echo "New mirrorlist was not found. To fix this update pacman-mirrorlist"
+  exit
 fi
 }
 
