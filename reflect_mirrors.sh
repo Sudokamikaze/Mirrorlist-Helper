@@ -1,7 +1,9 @@
 #!/bin/bash
 
 function check {
-if grep -qs 'mirrorlist.pacnew' /etc/pacman.d; then
+varforcheck=$(ls /etc/pacman.d | grep "mirrorlist.pacnew")
+if [ "$varforcheck" == "mirrorlist.pacnew" ]; then
+echo "Mirrorlist was found!"
 sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
 cd /etc/pacman.d/
 sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
