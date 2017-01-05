@@ -1,5 +1,14 @@
 #!/bin/bash
 
+function generate {
+cd /tmp
+wget -O mirrorlist.tmp https://www.archlinux.org/mirrorlist/?country=all&protocol=http&ip_version=4
+sudo cp mirrorlist.tmp /etc/pacman.d/mirrorlist.pacnew
+rm mirrorlist.tmp
+check
+}
+
+
 function check {
 varforcheck=$(ls /etc/pacman.d | grep "mirrorlist.pacnew")
 if [ "$varforcheck" == "mirrorlist.pacnew" ]; then
@@ -9,8 +18,15 @@ cd /etc/pacman.d/
 sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
 else
   echo " "
-  echo "New mirrorlist was not found. To fix this update pacman-mirrorlist"
-  exit
+  echo "New mirrorlist was not found."
+  echo -n "Do you want to generate new mirrorlist and reflect: "
+  read newmirror
+  case "$newmirror"
+    y|Y) generate
+    ;;
+    n|N) exit 1
+    ;;
+esac
 fi
 }
 
