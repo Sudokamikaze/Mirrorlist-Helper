@@ -21,7 +21,7 @@ else
   echo "New mirrorlist was not found."
   echo -n "Do you want to generate new mirrorlist and reflect: "
   read newmirror
-  case "$newmirror"
+  case "$newmirror" in
     y|Y) generate
     ;;
     n|N) exit 1
