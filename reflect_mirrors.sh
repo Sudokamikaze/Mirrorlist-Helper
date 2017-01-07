@@ -2,7 +2,8 @@
 
 function generate {
 cd /tmp
-wget -O mirrorlist.tmp https://www.archlinux.org/mirrorlist/?country=all&protocol=http&ip_version=4
+echo "Downloading newly generated mirrorlist"
+wget -q -O mirrorlist.tmp https://www.archlinux.org/mirrorlist/?country=all&protocol=http&ip_version=4
 sudo cp mirrorlist.tmp /etc/pacman.d/mirrorlist.pacnew
 rm mirrorlist.tmp
 check
@@ -19,7 +20,8 @@ sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
 else
   echo " "
   echo "New mirrorlist was not found."
-  echo -n "Do you want to generate new mirrorlist and reflect: "
+  echo " "
+  echo -n "Do you want to generate new mirrorlist?[Y/N]: "
   read newmirror
   case "$newmirror" in
     y|Y) generate
