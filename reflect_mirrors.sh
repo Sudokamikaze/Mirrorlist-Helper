@@ -1,5 +1,7 @@
 #!/bin/bash
 
+hardcoded=false
+
 function generate {
 cd /tmp
 echo "Downloading newly generated mirrorlist"
@@ -32,6 +34,7 @@ esac
 fi
 }
 
+if [ "$hardcoded" == "false" ]; then
 echo -n "Do you want to processed mirrors?[Y/N]: "
 read menu
 case "$menu" in
@@ -40,7 +43,4 @@ case "$menu" in
   n|N|*) exit
   ;;
 esac
-
-echo "Running force update to test new mirrors"
-sudo pacman -Syyu
-echo Done!
+fi

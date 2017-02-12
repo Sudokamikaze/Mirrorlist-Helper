@@ -7,6 +7,7 @@ fi
 
 function install {
 if [ "$op" == "install" ]; then
+sed -i "s/hardcoded=false/hardcoded=true/g" ./reflect_mirrors.sh
 cp reflect_mirrors.sh /bin/reflect_mirrors.sh
 cp mirrors.hook /etc/pacman.d/hooks/mirrors.hook
 else
