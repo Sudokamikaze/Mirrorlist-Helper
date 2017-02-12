@@ -10,6 +10,7 @@ if [ "$op" == "install" ]; then
 sed -i "s/hardcoded=false/hardcoded=true/g" ./reflect_mirrors.sh
 cp reflect_mirrors.sh /bin/reflect_mirrors.sh
 cp mirrors.hook /etc/pacman.d/hooks/mirrors.hook
+sed -i "s/hardcoded=true/hardcoded=false/g" ./reflect_mirrors.sh
 else
 rm /bin/reflect_mirrors.sh
 rm /etc/pacman.d/hooks/mirrors.hook

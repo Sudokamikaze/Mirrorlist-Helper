@@ -43,4 +43,6 @@ case "$menu" in
   n|N|*) exit
   ;;
 esac
+else
+  check
 fi
