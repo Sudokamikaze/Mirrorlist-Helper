@@ -17,8 +17,8 @@ fi
 
 if ! [ -f /bin/reflect_mirrors.sh ]; then
 echo "Installing..."
-install
 op=install
+install
 else
 echo "Removing..."
 install
