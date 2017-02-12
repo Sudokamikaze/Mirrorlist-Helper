@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = pacman-mirrorlist
+
+[Action]
+Depends = bash
+When = PreTransaction
+Exec = /usr/bin/bash /bin/reflect_mirrors.sh
