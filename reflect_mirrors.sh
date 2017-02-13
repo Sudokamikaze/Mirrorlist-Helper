@@ -14,15 +14,17 @@ check
 
 function check {
 varforcheck=$(ls /etc/pacman.d | grep "mirrorlist.pacnew")
-if [ "$varforcheck" == "mirrorlist.pacnew" ]; then
+case "$varforcheck" in
+  mirrorlist.pacnew)
 echo "Mirrorlist was found!"
 sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
 cd /etc/pacman.d/
 sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
-else
+  *)
   echo " "
   echo "New mirrorlist was not found."
   echo " "
+  if [ "$hardcoded" == "false" ]; in
   echo -n "Do you want to generate new mirrorlist?[Y/N]: "
   read newmirror
   case "$newmirror" in
