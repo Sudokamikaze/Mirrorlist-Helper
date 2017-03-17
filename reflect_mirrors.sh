@@ -25,16 +25,16 @@ sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
   echo " "
   echo "New mirrorlist was not found."
   echo " "
-  if [ "$hardcoded" == "false" ]; in
+  if [ "$hardcoded" == "false" ]; then
   echo -n "Do you want to generate new mirrorlist?[Y/N]: "
   read newmirror
-  if [ "$newmirror" == "y" ];
+  if [ "$newmirror" == "y" ]; then
   generate
 elif [ "$newmirror" == "Y" ]; then
   generate
 fi
-esac
 fi
+esac
 }
 
 if [ "$hardcoded" == "false" ]; then
