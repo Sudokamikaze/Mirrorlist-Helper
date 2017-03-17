@@ -20,6 +20,7 @@ echo "Mirrorlist was found!"
 sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
 cd /etc/pacman.d/
 sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
+  ;;
   *)
   echo " "
   echo "New mirrorlist was not found."
@@ -27,11 +28,11 @@ sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
   if [ "$hardcoded" == "false" ]; in
   echo -n "Do you want to generate new mirrorlist?[Y/N]: "
   read newmirror
-  case "$newmirror" in
-    y|Y) generate
-    ;;
-    n|N) exit 1
-    ;;
+  if [ "$newmirror" == "y" ];
+  generate
+elif [ "$newmirror" == "Y" ]; then
+  generate
+fi
 esac
 fi
 }
