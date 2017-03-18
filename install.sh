@@ -9,7 +9,7 @@ function install {
 if [ "$op" == "install" ]; then
 sed -i "s/hardcoded=false/hardcoded=true/g" ./reflect_mirrors.sh
 cp reflect_mirrors.sh $paths/reflect_mirrors.sh
-# cp mirrors.hook /etc/pacman.d/hooks/mirrors.hook
+cp mirrors.hook /etc/pacman.d/hooks/mirrors.hook
 sed -i "s/hardcoded=true/hardcoded=false/g" ./reflect_mirrors.sh
 else
 rm $paths/reflect_mirrors.sh
@@ -49,7 +49,7 @@ do
     call
     exit 1
     ;;
-    *) 
+    *)
     exit 1
     ;;
 esac
