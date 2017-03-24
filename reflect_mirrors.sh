@@ -8,18 +8,28 @@ echo "Downloading newly generated mirrorlist"
 wget -q -O mirrorlist.tmp https://www.archlinux.org/mirrorlist/?country=all&protocol=http&ip_version=4
 sudo cp mirrorlist.tmp /etc/pacman.d/mirrorlist.pacnew
 rm mirrorlist.tmp
+generated=true
 check
 }
 
+function reflect {
+  sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
+  cd /etc/pacman.d/
+  if  [ "$generated" == "true" ]; then
+  sudo mv mirrorlist.pacnew mirrorlist
+else
+  sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
+fi
+}
 
 function check {
 varforcheck=$(ls /etc/pacman.d | grep "mirrorlist.pacnew")
 case "$varforcheck" in
   mirrorlist.pacnew)
-echo "Mirrorlist was found!"
-sudo reflector --verbose -l 200 -p http --sort rate --save /etc/pacman.d/mirrorlist.pacnew
-cd /etc/pacman.d/
-sudo rm mirrorlist && sudo mv mirrorlist.pacnew mirrorlist
+  echo " "
+  echo "New mirrorlist was not found."
+  echo " "
+  reflect
   ;;
   *)
   echo " "
