@@ -1,7 +1,5 @@
 #!/bin/bash
 
-hardcoded=false
-
 function generate {
 cd /tmp
 echo "Downloading newly generated mirrorlist"
@@ -27,15 +25,15 @@ varforcheck=$(ls /etc/pacman.d | grep "mirrorlist.pacnew")
 case "$varforcheck" in
   mirrorlist.pacnew)
   echo " "
-  echo "New mirrorlist was not found."
+  echo "New mirrorlist was found."
   echo " "
   reflect
   ;;
   *)
+  if [ "$opt" != "h" ]; then
   echo " "
   echo "New mirrorlist was not found."
   echo " "
-  if [ "$hardcoded" == "false" ]; then
   echo -n "Do you want to generate new mirrorlist?[Y/N]: "
   read newmirror
   if [ "$newmirror" == "y" ]; then
@@ -43,19 +41,29 @@ case "$varforcheck" in
 elif [ "$newmirror" == "Y" ]; then
   generate
 fi
+else
+  echo "Mirrolist not found"
+  exit 1
 fi
 esac
+
 }
 
-if [ "$hardcoded" == "false" ]; then
-echo -n "Do you want to processed mirrors?[Y/N]: "
-read menu
-case "$menu" in
-  y|Y) check
-  ;;
-  n|N|*) exit
-  ;;
-esac
-else
-  check
+if [ $# = 0 ]; then
+  echo -n "Do you want to processed mirrors?[Y/N]: "
+  read menu
+  case "$menu" in
+    y|Y) check
+    ;;
+    n|N|*) exit
+    ;;
+  esac
 fi
+
+while getopts "h" opt ;
+do
+  case $opt in
+    h) check
+    ;;
+esac
+done
