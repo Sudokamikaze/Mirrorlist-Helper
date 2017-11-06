@@ -7,4 +7,4 @@ Target = pacman-mirrorlist
 [Action]
 Depends = bash
 When = PostTransaction
-Exec = /usr/bin/bash /bin/reflect_mirrors.sh -h
+Exec = /usr/bin/bash /bin/reflect_mirrors.sh --silent
